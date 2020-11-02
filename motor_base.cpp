@@ -1,12 +1,12 @@
 #include <stdio>
 #include <stdint>
+#include <cmath>
 
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include <std_msgs/Float64.h>
 
-void move_left_wheel(uint_8);
-void move_right_wheel(uint_8);
+void send_command_to_arduino(double, double);
 
 void twist_callback(const geometry_msgs::Twist&);
 
@@ -31,6 +31,26 @@ void twist_callback( const geometry_msgs::Twist& twist_msg ){
     left_analog_speed = 255*(left_wheel_v/max_speed);
     right_analog_speed = 255*(right_wheel_v/max_speed);
 
-    move_left_wheel(left_analog_speed);
-    move_right_wheel(right_analog_speed);
+    send_command_to_arduino(left_analog_speed,right_analog_speed);
+    
 }
+void send_command_to_arduino(double left_analog_speed, double right_analog_speed){
+    //construct serial packet
+    char forward_byte = 0; 
+    char left_speed_byte;
+    char right_speed_byte;
+    char packet[3];
+    if (left_analog_speed>0){
+        left_forward = 1;
+    }
+    if (right_analog_speed>0){
+        forward_byte += 2;
+    }
+    left_speed_byte= (char) abs(left_analog_speed);
+    right_speed_byte= (char) abs(right_analog_speed);
+    packet = {forward_byte,left_speed_byte,right_speed_byte};
+
+    //send serialpacket
+    //TODO
+}
+
