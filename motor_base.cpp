@@ -20,8 +20,8 @@ void twist_callback( const geometry_msgs::Twist& twist_msg ){
     std_msgs::Float64 linear_v = twist_msg->linear.x;
     std_msgs::Float64 angular_v = twist_msg->angular.z;
 
-    uint_8 left_analog_speed;
-    uint_8 right_analog_speed;
+    double left_analog_speed;
+    double right_analog_speed;
     
     double track =0.3; //needs to be determined by measuring the physical robot. Will be obtained from the udrf. In m. 
     double max_speed = .5; //max speed of the robot in m/s. Will be obtained fom the udrf
