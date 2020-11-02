@@ -106,7 +106,7 @@ void loop() {
     bool leftWheel = true;
     bool beginningOfPacket= true;
     bool leftForward;
-    bool rightBackward;
+    bool rightForward;
     char leftWheelSpeed;
     char rightWheelSpeed;
 	if (Serial.available() > 0){
